@@ -17,36 +17,42 @@ class PostService(
 ) {
 
     fun createPost(postRequest: PostRequest): Post {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val publishDate = dateFormat.parse(postRequest.publishDate)
+
         val post = Post.createRequiredFields(
             title = postRequest.title,
             summary = postRequest.summary,
-            publishDate = postRequest.publishDate
+            publishDate = publishDate
         )
         return postRepository.save(post)
     }
 
-    // ID로 게시물 조회
+
+
     fun getPostById(postId: UUID): Post? {
         return postRepository.findById(postId).orElse(null)
     }
 
-    // 게시물 수정
+
     fun updatePost(postId: UUID, postRequest: PostRequest): Post? {
         val existingPost = postRepository.findById(postId).orElse(null) ?: return null
 
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val publishDate = dateFormat.parse(postRequest.publishDate)
 
         val postToSave = existingPost.copy(
 
             title = postRequest.title,
             summary = postRequest.summary,
-            publishDate = postRequest.publishDate
+            publishDate = publishDate
         )
 
 
         return postRepository.save(existingPost)
     }
 
-    // 게시물 삭제
+
     fun deletePost(postId: UUID) {
         postRepository.deleteById(postId)
     }

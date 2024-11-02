@@ -19,8 +19,8 @@ import java.util.UUID
 class PostController(private val postService: PostService) {
 
     @PostMapping
-    fun createPost(@RequestBody postRequestDTO: PostRequest): Post {
-        return postService.createPost(postRequestDTO)
+    fun createPost(@RequestBody postRequest: PostRequest): Post {
+        return postService.createPost(postRequest)
     }
 
     @GetMapping("/{postId}")
@@ -29,8 +29,8 @@ class PostController(private val postService: PostService) {
     }
 
     @PatchMapping("/{postId}")
-    fun updatePost(@PathVariable postId: UUID, @RequestBody postRequestDTO: PostRequest): Post? {
-        return postService.updatePost(postId, postRequestDTO)
+    fun updatePost(@PathVariable postId: UUID, @RequestBody postRequest: PostRequest): Post? {
+        return postService.updatePost(postId, postRequest)
     }
 
     @DeleteMapping("/{postId}")

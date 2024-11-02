@@ -6,6 +6,6 @@ import java.util.UUID
 class PostRequest(
     val title: String,
     val summary: String,
-    val publishDate: Date
+    val publishDate: String
 
 )
