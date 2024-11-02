@@ -34,7 +34,7 @@ class PostControllerTest {
 
     @Test
     fun `should create a post`() {
-        val postRequest = PostRequest("Title", "Summary", "2024-11-02T00:00:00")
+        val postRequest = PostRequest("Title", "Summary", "2024-11-02")
         val savedPost = Post(UUID.randomUUID(), null, "Title", "Summary", Date())
 
         // Mocking service behavior
@@ -66,7 +66,7 @@ class PostControllerTest {
     @Test
     fun `should update a post`() {
         val postId = UUID.randomUUID()
-        val postRequest = PostRequest("Updated Title", "Updated Summary", "2024-11-02T00:00:00")
+        val postRequest = PostRequest("Updated Title", "Updated Summary", "2024-11-02")
         val updatedPost = Post(postId, null, "Updated Title", "Updated Summary", Date())
 
         // Mocking service behavior

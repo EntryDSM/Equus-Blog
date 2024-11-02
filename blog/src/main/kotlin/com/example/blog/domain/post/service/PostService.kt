@@ -17,7 +17,7 @@ class PostService(
 ) {
 
     fun createPost(postRequest: PostRequest): Post {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val publishDate = dateFormat.parse(postRequest.publishDate)
 
         val post = Post.createRequiredFields(
@@ -38,7 +38,7 @@ class PostService(
     fun updatePost(postId: UUID, postRequest: PostRequest): Post? {
         val existingPost = postRepository.findById(postId).orElse(null) ?: return null
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val publishDate = dateFormat.parse(postRequest.publishDate)
 
         val postToSave = existingPost.copy(
