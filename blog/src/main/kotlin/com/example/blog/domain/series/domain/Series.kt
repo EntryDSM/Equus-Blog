@@ -10,12 +10,9 @@ class Series(
     @Id
     @GeneratedValue
     val seriesId: UUID? = null,
-
     @Column(nullable = false)
     val seriesName: String,
-
     val description: String? = null,
-
     @OneToMany(mappedBy = "series", cascade = [CascadeType.ALL])
-    val posts: List<Post> = listOf()
+    val posts: List<Post> = listOf(),
 )

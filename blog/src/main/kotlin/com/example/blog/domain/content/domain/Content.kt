@@ -6,23 +6,15 @@ import java.util.UUID
 
 @Entity
 @Table(
-    name = "content"
-    )
-class Content (
-
+    name = "content",
+)
+class Content(
     @Id
     @GeneratedValue
     val contentId: UUID? = null,
-
     @Column(nullable = false)
     val text: String,
-
     @OneToOne
     @JoinColumn(name = "post_id", nullable = false)
-    val post: Post
-
-
-
-
-
+    val post: Post,
 )

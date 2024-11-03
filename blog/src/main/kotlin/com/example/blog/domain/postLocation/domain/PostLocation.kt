@@ -16,14 +16,11 @@ data class PostLocation(
     @Id
     @GeneratedValue
     val locationId: UUID? = null,
-
     @Column(nullable = false)
     val latitude: Double,
-
     @Column(nullable = false)
     val longitude: Double,
-
     @OneToOne
     @JoinColumn(name = "post_id", nullable = false)
-    val post: Post
+    val post: Post,
 )

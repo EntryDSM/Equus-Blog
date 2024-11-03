@@ -14,16 +14,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.patch
-import org.springframework.test.web.servlet.delete
+import org.springframework.test.web.servlet.post
 import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @WebMvcTest(PostController::class)
 class PostControllerTest {
-
     @Autowired
     private lateinit var mockMvc: MockMvc
 
