@@ -4,6 +4,7 @@ import com.example.blog.domain.post.domain.Post
 import com.example.blog.domain.post.presentation.dto.request.PostRequest
 import com.example.blog.domain.post.repository.PostRepository
 import jakarta.transaction.Transactional
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -23,8 +24,9 @@ class PostService(
         return postRepository.save(post)
     }
 
-    fun getPostById(postId: UUID): Post? {
-        return postRepository.findById(postId).orElse(null)
+    fun getPostById(postId: UUID): Post {
+        return postRepository.findById(postId)
+            .orElseThrow { NotFoundException("Post not found with id: $postId") }
     }
 
     fun updatePost(
