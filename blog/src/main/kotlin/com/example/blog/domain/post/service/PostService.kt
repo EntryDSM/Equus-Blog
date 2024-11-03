@@ -5,6 +5,7 @@ import com.example.blog.domain.post.presentation.dto.request.PostRequest
 import com.example.blog.domain.post.repository.PostRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -29,21 +30,16 @@ class PostService(
             .orElseThrow { NotFoundException("Post not found with id: $postId") }
     }
 
-    fun updatePost(
-        postId: UUID,
-        postRequest: PostRequest
-    ): Post? {
-        val existingPost = postRepository.findById(postId).orElse(null) ?: return null
+    fun updatePost(postId: UUID, postRequest: PostRequest): Post? {
+        val existingPost = postRepository.findByIdOrNull(postId) ?: throw NotFoundException("Post with ID $postId not found")
 
-        val publishDate = Date()
-
-        val postToSave = existingPost.copy(
+        val updatedPost = existingPost.copy(
             title = postRequest.title,
             summary = postRequest.summary,
-            publishDate = publishDate // 현재 날짜로 설정
+            publishDate = Date()
         )
 
-        return postRepository.save(postToSave)
+        return postRepository.save(updatedPost)
     }
 
     fun deletePost(postId: UUID) {
