@@ -8,8 +8,8 @@ import jakarta.persistence.*
 import java.util.Date
 import java.util.UUID
 
-@Entity
-@Table(name = "posts")
+
+@Entity(name = "posts")
 data class Post(
     @Id
     @GeneratedValue

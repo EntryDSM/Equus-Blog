@@ -10,8 +10,7 @@ import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import java.util.UUID
 
-@Entity
-@Table(name = "post_locations")
+@Entity(name = "post_locations")
 data class PostLocation(
     @Id
     @GeneratedValue
