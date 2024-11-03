@@ -6,6 +6,7 @@ import com.example.blog.domain.post.repository.PostRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.UUID
 
 @Service
@@ -13,16 +14,12 @@ import java.util.UUID
 class PostService(
     private val postRepository: PostRepository,
 ) {
-    fun createPost(postRequest: PostRequest): Post {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val publishDate = dateFormat.parse(postRequest.publishDate)
-
-        val post =
-            Post.createRequiredFields(
-                title = postRequest.title,
-                summary = postRequest.summary,
-                publishDate = publishDate,
-            )
+    fun createPost(request: PostRequest): Post {
+        val post = Post(
+            title = request.title,
+            summary = request.summary,
+            publishDate = Date() // 수정
+        )
         return postRepository.save(post)
     }
 
@@ -32,21 +29,19 @@ class PostService(
 
     fun updatePost(
         postId: UUID,
-        postRequest: PostRequest,
+        postRequest: PostRequest
     ): Post? {
         val existingPost = postRepository.findById(postId).orElse(null) ?: return null
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val publishDate = dateFormat.parse(postRequest.publishDate)
+        val publishDate = Date()
 
-        val postToSave =
-            existingPost.copy(
-                title = postRequest.title,
-                summary = postRequest.summary,
-                publishDate = publishDate,
-            )
+        val postToSave = existingPost.copy(
+            title = postRequest.title,
+            summary = postRequest.summary,
+            publishDate = publishDate // 현재 날짜로 설정
+        )
 
-        return postRepository.save(existingPost)
+        return postRepository.save(postToSave)
     }
 
     fun deletePost(postId: UUID) {
