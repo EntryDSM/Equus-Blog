@@ -2,10 +2,9 @@ package com.example.blog
 
 import com.example.blog.domain.post.domain.Post
 import com.example.blog.domain.post.presentation.controller.PostController
-import com.example.blog.domain.post.presentation.dto.request.PostRequest
+import com.example.blog.domain.post.presentation.dto.request.PostCreateRequest
 import com.example.blog.domain.post.service.PostService
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mockito.*
@@ -33,7 +32,7 @@ class PostControllerTest {
 
     @Test
     fun `should create a post`() {
-        val postRequest = PostRequest("Title", "Summary", "2024-11-02")
+        val postRequest = PostCreateRequest("Title", "Summary", "2024-11-02")
         val savedPost = Post(UUID.randomUUID(), null, "Title", "Summary", Date())
 
         // Mocking service behavior
@@ -65,7 +64,7 @@ class PostControllerTest {
     @Test
     fun `should update a post`() {
         val postId = UUID.randomUUID()
-        val postRequest = PostRequest("Updated Title", "Updated Summary", "2024-11-02")
+        val postRequest = PostCreateRequest("Updated Title", "Updated Summary", "2024-11-02")
         val updatedPost = Post(postId, null, "Updated Title", "Updated Summary", Date())
 
         // Mocking service behavior
