@@ -41,9 +41,9 @@ class PostController(private val postService: PostService) {
     @ResponseStatus(HttpStatus.OK)
     fun updatePost(
         @PathVariable postId: UUID,
-        @RequestBody @Valid postRequest: PostUpdateRequest,
+        @RequestBody @Valid updateRequest: PostUpdateRequest,
     ): Post {
-        return postService.updatePost(postId, postRequest)
+        return postService.updatePost(postId, updateRequest)
     }
 
     @DeleteMapping("/{postId}")
@@ -54,4 +54,4 @@ class PostController(private val postService: PostService) {
         postService.deletePost(postId)
     }
 }
-}
+

@@ -15,9 +15,9 @@ data class Post(
     @GeneratedValue
     val postId: UUID? = null,
     val userId: UUID? = null,
-    val title: String,
-    val summary: String,
-    val publishDate: Date,
+    var title: String,
+    var summary: String,
+    var publishDate: Date,
     val isPinned: Boolean = false,
     val createdAt: Date = Date(),
     @OneToOne(mappedBy = "post", cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -48,4 +48,11 @@ data class Post(
             )
         }
     }
+
+    fun update(title: String, summary: String, publishDate: Date) {
+            this.title = title
+            this.summary = summary
+            this.publishDate = publishDate
+    }
 }
+
