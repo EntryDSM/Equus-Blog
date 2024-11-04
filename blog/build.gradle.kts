@@ -40,7 +40,8 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("jakarta.transaction:jakarta.transaction-api:1.3.3")
+    implementation("jakarta.transaction:jakarta.transaction-api:2.0.0")
+    implementation("mysql:mysql-connector-java:8.0.33")
 }
 
 kotlin {

@@ -29,13 +29,13 @@ class PostService(
     @Transactional(readOnly = true)
     fun getPostById(postId: UUID): Post {
         return postRepository.findByIdOrNull(postId)
-            ?: throw NotFoundException("Post not found with id: $postId")
+            ?: throw NotFoundException()
     }
 
     @Transactional
     fun updatePost(postId: UUID, updateRequest: PostUpdateRequest): Post {
         val existingPost = postRepository.findByIdOrNull(postId)
-            ?: throw NotFoundException("Post with ID $postId not found")
+            ?: throw NotFoundException()
 
         existingPost.update(
             title = updateRequest.title,
@@ -49,7 +49,7 @@ class PostService(
     @Transactional
     fun deletePost(postId: UUID) {
         val post = postRepository.findByIdOrNull(postId)
-            ?: throw NotFoundException("Post with ID $postId not found")
+            ?: throw NotFoundException()
 
         postRepository.delete(post)
     }
