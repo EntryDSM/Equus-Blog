@@ -6,11 +6,11 @@ import com.example.blog.domain.post.presentation.dto.request.PostUpdateRequest
 import com.example.blog.domain.post.repository.PostRepository
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Date
 import java.util.UUID
-
 
 @Service
 class PostService(
@@ -25,6 +25,7 @@ class PostService(
         )
         return postRepository.save(post)
     }
+
     @Transactional(readOnly = true)
     fun getPostById(postId: UUID): Post {
         return postRepository.findByIdOrNull(postId)
@@ -35,7 +36,6 @@ class PostService(
     fun updatePost(postId: UUID, updateRequest: PostUpdateRequest): Post {
         val existingPost = postRepository.findByIdOrNull(postId)
             ?: throw NotFoundException("Post with ID $postId not found")
-
 
         existingPost.update(
             title = updateRequest.title,

@@ -3,6 +3,7 @@ package com.example.blog.domain.post.presentation.controller
 import com.example.blog.domain.post.domain.Post
 import com.example.blog.domain.post.presentation.dto.request.PostCreateRequest
 import com.example.blog.domain.post.presentation.dto.request.PostUpdateRequest
+import com.example.blog.domain.post.presentation.dto.response.PostResponse
 import com.example.blog.domain.post.service.PostService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -20,30 +21,29 @@ import java.util.UUID
 @RestController
 @RequestMapping("/posts")
 class PostController(private val postService: PostService) {
-
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     fun createPost(
-        @RequestBody @Valid postRequest: PostCreateRequest,
-    ): Post {
-        return postService.createPost(postRequest)
+        @RequestBody request: PostCreateRequest,
+    ): PostResponse {
+        val post = postService.createPost(request)
+        return PostResponse.fromEntity(post) // 엔티티에서 dto로 변환
     }
 
     @GetMapping("/{postId}")
-    @ResponseStatus(HttpStatus.OK)
     fun getPostById(
         @PathVariable postId: UUID,
-    ): Post {
-        return postService.getPostById(postId)
+    ): PostResponse? {
+        val post = postService.getPostById(postId)
+        return PostResponse.fromEntity(post)
     }
 
     @PatchMapping("/{postId}")
-    @ResponseStatus(HttpStatus.OK)
     fun updatePost(
         @PathVariable postId: UUID,
-        @RequestBody @Valid updateRequest: PostUpdateRequest,
-    ): Post {
-        return postService.updatePost(postId, updateRequest)
+        @RequestBody request: PostUpdateRequest,
+    ): PostResponse? {
+        val post = postService.updatePost(postId, request)
+        return PostResponse.fromEntity(post)
     }
 
     @DeleteMapping("/{postId}")
@@ -54,4 +54,3 @@ class PostController(private val postService: PostService) {
         postService.deletePost(postId)
     }
 }
-
