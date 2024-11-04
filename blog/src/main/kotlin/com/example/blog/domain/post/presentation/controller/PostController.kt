@@ -1,9 +1,9 @@
 package com.example.blog.domain.post.presentation.controller
 
 import com.example.blog.domain.post.domain.Post
-import com.example.blog.domain.post.presentation.dto.request.PostRequest
+import com.example.blog.domain.post.presentation.dto.request.PostCreateRequest
 import com.example.blog.domain.post.service.PostService
-import org.springframework.web.bind.annotation.DeleteMapping
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -16,9 +16,10 @@ import java.util.UUID
 @RestController
 @RequestMapping("/posts")
 class PostController(private val postService: PostService) {
+
     @PostMapping
     fun createPost(
-        @RequestBody postRequest: PostRequest,
+        @RequestBody @Valid postRequest: PostCreateRequest,
     ): Post {
         return postService.createPost(postRequest)
     }
@@ -26,22 +27,15 @@ class PostController(private val postService: PostService) {
     @GetMapping("/{postId}")
     fun getPostById(
         @PathVariable postId: UUID,
-    ): Post? {
+    ): Post {
         return postService.getPostById(postId)
     }
 
     @PatchMapping("/{postId}")
     fun updatePost(
         @PathVariable postId: UUID,
-        @RequestBody postRequest: PostRequest,
-    ): Post? {
+        @RequestBody @Valid postRequest: PostUpdateRequest,
+    ): Post {
         return postService.updatePost(postId, postRequest)
-    }
-
-    @DeleteMapping("/{postId}")
-    fun deletePost(
-        @PathVariable postId: UUID,
-    ) {
-        postService.deletePost(postId)
     }
 }
