@@ -40,6 +40,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("jakarta.transaction:jakarta.transaction-api:1.3.3")
 }
 
 kotlin {
