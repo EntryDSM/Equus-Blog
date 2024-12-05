@@ -3,7 +3,6 @@ package com.example.blog
 import com.example.blog.domain.post.domain.Post
 import com.example.blog.domain.post.presentation.controller.PostController
 import com.example.blog.domain.post.presentation.dto.request.PostCreateRequest
-import com.example.blog.domain.post.service.PostService
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
